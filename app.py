@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd   
-                                                                                                 
+                                                                                                
 import plotly.express as px                                  
 import plotly.graph_objects as go
 from googleapiclient.discovery import build
 import re
 from datetime import datetime, timezone
+import os
+from dotenv import load_dotenv
 
 # ---------------- CONFIG ---------------- #
-API_KEY = "AIzaSyACles4MTpe7AMxia8VjkG3tt3yv5DU2sM"
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 st.set_page_config(page_title="YouTube Analytics Ultimate", layout="wide")
