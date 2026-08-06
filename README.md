@@ -109,7 +109,7 @@ YouTube-Analytics-Dashboard/
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/youtube-analytics-dashboard.git
+git clone https://github.com/goswamibiswarup369-ops/youtube-analytics-dashboard.git
 ```
 
 ### Navigate to the project folder
