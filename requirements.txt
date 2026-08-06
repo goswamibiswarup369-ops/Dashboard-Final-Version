@@ -53,3 +53,4 @@ tzdata==2026.1
 uritemplate==4.2.0
 urllib3==2.6.3
 watchdog==6.0.0
+python-dotenv==1.0.1
