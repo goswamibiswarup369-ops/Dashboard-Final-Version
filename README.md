@@ -1,178 +1,176 @@
-# 🚀 YouTube Analytics Dashboard
+# 🚀 YouTube Analytics Ultimate Dashboard
 
-An advanced YouTube Analytics Dashboard built using **Python**, **Streamlit**, **Plotly**, and the **YouTube Data API v3**. This project enables users to analyze YouTube channels and individual videos through interactive visualizations, performance metrics, and actionable insights.
-
----
-
-## 🌟 Overview
-
-This dashboard provides comprehensive analytics for YouTube creators, marketers, and data enthusiasts. Users can explore channel growth, video engagement, audience interactions, and performance trends through a clean and interactive interface.
+A Streamlit dashboard for analyzing YouTube channels and videos using the
+**YouTube Data API v3** — channel health scoring, growth forecasting,
+content-theme clustering, comment sentiment analysis, and more.
 
 ---
 
 ## ✨ Features
 
-### 📺 Channel Analysis
-- Search any public YouTube channel
-- View subscriber count, total views, and uploaded videos
-- Display channel description and keywords
-- Extract links from channel description
-- Top 5 & Bottom 5 performing videos
-- Average views and engagement rate
-- Viral video detection
-- Channel performance consistency analysis
+### Channel Analysis
+- Channel overview: subscribers, total views, total videos, age, country, keywords, description links
+- **Channel Health Score** — a composite 0–100 KPI (engagement + growth momentum + consistency) with a letter grade and gauge chart
+- Top/bottom performing videos with thumbnails
+- **Statistical anomaly detection** — flags viral outliers and underperforming videos via z-score
+- Views, engagement, and correlation visualizations (histograms, scatter, box plot, heatmap)
+- **Word cloud** of video titles
+- **Upload schedule heatmap** (day of week × hour)
+- **Shorts vs. long-form** split with performance comparison
+- **Content theme clustering** (TF-IDF + KMeans) — auto-discovers recurring content themes from titles and ranks them by performance
+- **90-day growth forecast** — linear trend extrapolation on cumulative views
+- **Best-time-to-post** recommendation based on historical performance
+- **Downloadable executive summary PDF** report
+- CSV/Excel export on every data table
 
-### 🎥 Video Analysis
-- Search any YouTube video
-- View video statistics
-- Engagement Rate
-- Like Rate
-- Comment Rate
-- Like-to-Comment Ratio
-- Average Views Per Day
-- Video Duration
-- Upload Date
-- Video Tags
-- Description Links
-- HD/SD Quality Detection
+### Video Analysis
+- Core stats: views, likes, comments, engagement, like rate, comment rate, views/day
+- Accepts a video title *or* a direct YouTube URL
+- Performance charts, engagement gauges, and an interaction funnel
+- **Comment sentiment analysis** (VADER) — pie chart breakdown plus top positive/negative comments
+- Derived-stats table and tag analysis, both exportable
 
----
+### Compare Channels
+- Compare up to 5 channels side-by-side: subscribers, total views, total videos, avg views/engagement (recent uploads)
 
-## 📊 Interactive Visualizations
+### Compare Videos
+- Compare up to 5 videos side-by-side: views, likes, comments, engagement rate
 
-- 📈 Views Trend
-- 📊 Views Distribution
-- ❤️ Engagement Distribution
-- 📉 Views vs Likes Analysis
-- 📦 Box Plot for Outlier Detection
-- 🔥 Correlation Heatmap
-- 🎯 Funnel Chart
-- 🥧 Pie Charts
-- 📊 Bar Charts
-- ⚡ Gauge Charts
+### General
+- API response caching (30-minute TTL) to conserve YouTube API quota
+- Custom styling (gradient header, styled metric cards, themed tabs)
 
 ---
 
-## 🧠 Smart Insights
+## 🛠 Tech Stack
 
-The dashboard automatically generates:
-
-- 🏆 Best Performing Video
-- 📉 Worst Performing Video
-- 📈 Channel Growth Analysis
-- 🔥 Viral Video Detection
-- 📊 Performance Consistency
-- 💬 Engagement Analysis
-- 🎯 Optimization Suggestions
-
----
-
-## 🛠️ Tech Stack
-
-- Python
-- Streamlit
-- Plotly
-- Pandas
-- NumPy
-- Google YouTube Data API v3
-- Google API Python Client
-- Statsmodels
+| Purpose | Library |
+|---|---|
+| UI / app framework | [Streamlit](https://streamlit.io) |
+| Data handling | pandas, numpy |
+| Charts | Plotly |
+| YouTube data | google-api-python-client (YouTube Data API v3) |
+| Word cloud | wordcloud, matplotlib |
+| Sentiment analysis | vaderSentiment |
+| Content clustering | scikit-learn (TF-IDF + KMeans) |
+| PDF reports | reportlab |
+| Excel export | xlsxwriter |
+| Config | python-dotenv |
 
 ---
 
-## 📂 Project Structure
+## 📦 Installation
 
-```text
-YouTube-Analytics-Dashboard/
-│
-├── app.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-├── LICENSE
-│
-├── assets/
-│   └── demo.mp4
-│
-└── screenshots/
-    ├── home-dashboard.png
-    ├── channel-analysis.png
-    ├── video-analysis.png
-    ├── graphs.png
-    └── insights.png
+1. **Clone or download this project**, then move into its folder.
+
+2. **(Recommended) Create a virtual environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate      # Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## 🔑 Getting a YouTube Data API Key
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project (or select an existing one).
+3. Navigate to **APIs & Services → Library**, search for **YouTube Data API v3**, and enable it.
+4. Go to **APIs & Services → Credentials → Create Credentials → API Key**.
+5. Copy the generated key.
+
+---
+
+## ⚙️ Configuration
+
+Create a `.env` file in the project root (same folder as `app.py`):
+
+```
+API_KEY=your_youtube_api_key_here
+```
+
+**Deploying to Streamlit Community Cloud?** Skip the `.env` file and instead add
+this to your app's **Settings → Secrets**:
+
+```toml
+API_KEY = "your_youtube_api_key_here"
 ```
 
 ---
 
-## 🚀 Installation
-
-### Clone the repository
-
-```bash
-git clone https://github.com/goswamibiswarup369-ops/youtube-analytics-dashboard.git
-```
-
-### Navigate to the project folder
-
-```bash
-cd youtube-analytics-dashboard
-```
-
-### Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Run the application
+## ▶️ Running the App
 
 ```bash
 streamlit run app.py
 ```
 
----
-
-## 🔑 API Configuration
-
-Create your own **YouTube Data API v3** key from Google Cloud Console.
-
-Create a `.env` file:
-
-```env
-YOUTUBE_API_KEY=YOUR_API_KEY
-```
-
-Load it in Python:
-
-```python
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-API_KEY = os.getenv("YOUTUBE_API_KEY")
-```
-
-> **Note:** Never expose your API key in a public repository.
+The app opens automatically in your browser, usually at `http://localhost:8501`.
 
 ---
 
+## 🗂 Usage
 
-## 🚀 Future Enhancements
+1. Pick a **Mode** from the sidebar: `Channel Analysis`, `Video Analysis`, `Compare Channels`, or `Compare Videos`.
+2. Enter a channel name, a video title/URL, or a list of names/URLs (one per line for comparison modes).
+3. Click the corresponding **Analyze / Compare** button.
+4. Explore the tabs — each mode organizes results into thumbnails, overview tables, graphs, insights, and (for channels) content clusters and a growth forecast.
+5. Use the **CSV / Excel** buttons under any table to export data, or the **Download Executive Summary (PDF)** button in Channel Analysis → Insights for a shareable report.
 
-- 🤖 AI-powered Recommendations
-- 📈 Subscriber Growth Prediction
-- 📊 Channel Comparison
-- 📄 Export Reports (PDF & Excel)
-- 🌙 Dark Mode
-- 🌐 Multi-language Support
+---
+
+## 📁 Project Structure
+
+```
+YouTube-Analytics-Dashboard/
+│
+├── app.py                     # Main Streamlit application
+├── requirements.txt           # Python dependencies
+├── README.md
+├── .gitignore
+├── LICENSE
+├── .env                       # Your API key (not committed to version control)
+│
+└── screenshots/
+    ├── home dashboard.png.png
+    ├── channel analysis.png.png
+    ├── Channel Overview.png.png
+    ├── Video Analysis.png.png
+    ├── Graph Analysis.png.png
+    └── Graphs.png.png
+```
+
+---
+
+
+## ⚠️ Notes & Limitations
+
+- The YouTube Data API has a **default daily quota of 10,000 units**. Search calls
+  are the most expensive; caching (30-min TTL) reduces repeat-lookup cost, but
+  Compare Channels/Videos issues multiple API calls per run, so quota depletes
+  faster there.
+- Channel/video "growth forecast" is a simple linear trend over the fetched
+  video sample — it's an explainable estimate, not a guaranteed prediction.
+- Content clustering quality depends on how many videos are available and how
+  distinct their titles are; very small channels may not produce meaningful clusters.
+- Comment sentiment analysis only runs on videos with comments enabled and
+  fetches up to the 100 most relevant comments (not the full comment history).
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE) — free to use, modify, and distribute.
 
 ---
 
 ## 🤝 Contributing
 
 Contributions are welcome!
-
 Feel free to fork this repository, improve it, and submit a pull request.
 
 ---
@@ -180,24 +178,15 @@ Feel free to fork this repository, improve it, and submit a pull request.
 ## 👨‍💻 Author
 
 **Biswarup Goswami**
-
 🎓 B.Tech in Computer Science & Engineering
+💻 Full Stack Developer | Python Developer | Data Analytics Enthusiast
 
-💻 Full stack Developer | Python Developer | Data Analytics Enthusiast
-
-- GitHub: https://github.com/goswamibiswarup369-ops
-- LinkedIn: www.linkedin.com/in/biswarup-goswami-27881b2b9
+- GitHub: [goswamibiswarup369-ops](https://github.com/goswamibiswarup369-ops)
+- LinkedIn: [linkedin.com/in/biswarup-goswami-27881b2b9](https://www.linkedin.com/in/biswarup-goswami-27881b2b9)
 
 ---
 
 ## ⭐ Support
 
-If you found this project useful, please consider giving it a **⭐ Star** on GitHub.
-
+If you found this project useful, please consider giving it a ⭐ Star on GitHub.
 Your support motivates me to build more useful open-source projects.
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
